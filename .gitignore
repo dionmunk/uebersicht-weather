@@ -1,0 +1,8 @@
+# OS
+.DS_Store
+.DS_Store?
+__MACOSX
+
+# SF Symbol icon PNGs are generated locally on first run (see README), not shipped.
+# Apple's SF Symbols license does not permit redistributing the rendered artwork.
+weather.widget/lib/icons/
