@@ -8,7 +8,7 @@ Weather comes from [Open-Meteo](https://open-meteo.com), alerts from the US [Nat
 
 ## Screenshot
 
-![Screenshot](screenshots/screenshot.png)
+![Screenshot](screenshot.png)
 
 ## Icons: generated on first run (not shipped)
 
