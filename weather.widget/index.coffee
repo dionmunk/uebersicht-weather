@@ -59,7 +59,7 @@ style: """
   left 670px
 
   color var(--text, #fff)
-  text-shadow: 0 1px 1px rgba(20, 1, 1, 0.10)
+  text-shadow: 0 1px 1px rgba(20, 1, 1, 0.2)
   font-family -apple-system, BlinkMacSystemFont, system-ui, sans-serif
 
   .panel
@@ -195,7 +195,7 @@ style: """
     font-size: 10px
     text-transform: uppercase
     font-weight: bold
-    color: var(--secondary, rgba(#fff, .5))
+    color: var(--text-secondary, rgba(#fff, .5))
 
   .wx-hour-icon
     position: relative
