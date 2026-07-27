@@ -11,6 +11,9 @@
 
 command: "weather.widget/lib/weather.sh"
 
+# Enable or disable this widget.
+widgetEnabled: true   # true | false
+
 refreshFrequency: 900000   # 15 min
 
 # WMO weather code → [day icon, night icon, label]  (SF Symbol names in lib/icons)
@@ -244,6 +247,11 @@ formatHour: (iso) ->
   "#{h12} #{ampm}"
 
 update: (output, domEl) ->
+  # Hide entirely when disabled.
+  if not @widgetEnabled
+    $(domEl).css('display', 'none')
+    return
+  $(domEl).css('display', '')
   div = $(domEl)
   try
     data = JSON.parse (output or '').trim()
