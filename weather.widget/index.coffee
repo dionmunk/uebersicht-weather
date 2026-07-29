@@ -1,8 +1,8 @@
 # weather.widget
 #
-# Top row:  city (left) · condition (right)
-# Middle:   current temp + condition icon (same line, left)
-# Footer:   active weather alert (left) · today's hi/lo (right)
+# Top row:  city (left) · active weather alert (right)
+# Middle:   current temp over today's hi/lo (left) · condition icon over its label,
+#           centred on each other (right)
 # Two layouts via the `layout` option: 'hourly' (default, adds the 6-hour strip
 # below a divider, 170px) and 'compact' (header block only, 80px).
 # The hourly strip cycles its bottom row through temperature, chance of
@@ -141,21 +141,32 @@ style: """
     text-transform: uppercase
     font-weight: bold
 
-  .wx-temprow
+  // Current conditions, as two stacked pairs: the readings on the left (temp over
+  // today's hi/lo) and the condition on the right (icon over its label). Pairing the
+  // icon with its label in one column is what centres the two on each other, rather
+  // than each being flush right in a row of its own.
+  .wx-currentrow
     display: flex
-    align-items: center            // icon vertically centred with the temp
-    justify-content: space-between  // temp left, icon right
+    justify-content: space-between
+    align-items: flex-start
     margin-top: 3px
 
-  .wx-statusrow
+  .wx-readings
     display: flex
-    justify-content: space-between  // hi/lo left (under temp), status right
-    align-items: baseline
-    margin-top: 4px
+    flex-direction: column
 
+  .wx-condition
+    display: flex
+    flex-direction: column
+    align-items: center           // icon centred over the condition text
+
+  // Both columns come to 50px (a 30px temp/icon, 4px, then a 16px line), so the
+  // condition text lands on the hi/lo baseline without needing to be aligned to it.
   .wx-cond
     font-size: 13px
     font-weight: 300
+    margin-top: 4px
+    text-align: center            // wraps stay centred under the icon
 
   .wx-temp
     font-size: 30px
@@ -218,6 +229,7 @@ style: """
   .wx-hilo
     font-size: 13px
     font-weight: 300
+    margin-top: 4px          // mirrors .wx-cond so the two lines stay level
 
   .wx-lo
     margin-left: 12px
@@ -309,13 +321,15 @@ render: -> """
         <div class="wx-city"></div>
         <div class="wx-alert"><span class="wx-alert-icon"></span><span class="wx-alert-text"></span></div>
       </div>
-      <div class="wx-temprow">
-        <div class="wx-temp"></div>
-        <div class="wx-icon"><div class="wx-accent"></div></div>
-      </div>
-      <div class="wx-statusrow">
-        <div class="wx-hilo"><span class="wx-hi"></span><span class="wx-lo"></span></div>
-        <div class="wx-cond"></div>
+      <div class="wx-currentrow">
+        <div class="wx-readings">
+          <div class="wx-temp"></div>
+          <div class="wx-hilo"><span class="wx-hi"></span><span class="wx-lo"></span></div>
+        </div>
+        <div class="wx-condition">
+          <div class="wx-icon"><div class="wx-accent"></div></div>
+          <div class="wx-cond"></div>
+        </div>
       </div>
       <div class="wx-hourly"></div>
     </div>
