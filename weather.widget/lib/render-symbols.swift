@@ -14,7 +14,9 @@ let names = [
   "cloud.fog.fill","cloud.drizzle.fill","cloud.rain.fill","cloud.heavyrain.fill",
   "cloud.sun.rain.fill","cloud.moon.rain.fill","cloud.bolt.fill","cloud.bolt.rain.fill",
   "cloud.snow.fill","cloud.sleet.fill","cloud.hail.fill","wind","sun.haze.fill",
-  "exclamationmark.triangle.fill"
+  "exclamationmark.triangle.fill",
+  // Rotated per hour to show wind direction in the hourly strip.
+  "arrow.up"
 ]
 let outDir = CommandLine.arguments[1]
 let cfg = NSImage.SymbolConfiguration(pointSize: 200, weight: .regular)

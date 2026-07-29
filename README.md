@@ -2,13 +2,57 @@
 
 [![Creative Commons](https://flat.badgen.net/badge/license/CC-BY-NC-4.0/orange)](https://creativecommons.org/licenses/by-nc/4.0/)
 
-A weather widget for [Übersicht](http://tracesof.net/uebersicht/). It shows current conditions and temperature, the day's high/low, an hourly forecast strip, and active severe-weather alerts. Icons are macOS SF Symbols, rendered as two-layer masks so they carry Apple's accent colors while still flipping with your light/dark theme. Colors are theme-aware, with sensible built-in defaults, so the widget works on its own.
+A weather widget for [Übersicht](http://tracesof.net/uebersicht/). It shows current conditions and temperature, the day's high/low, an hourly forecast strip that cycles through temperature, chance of precipitation, and wind, and active severe-weather alerts. Icons are macOS SF Symbols, rendered as two-layer masks so they carry Apple's accent colors while still flipping with your light/dark theme. Colors are theme-aware, with sensible built-in defaults, so the widget works on its own.
 
 Weather comes from [Open-Meteo](https://open-meteo.com), alerts from the US [National Weather Service](https://www.weather.gov) (US only), and location from [ipinfo.io](https://ipinfo.io). No API keys are required.
 
 ## Screenshot
 
 ![Screenshot](screenshot.png)
+
+## Layouts
+
+Set `layout` near the top of `index.coffee`:
+
+| Value | Height | Shows |
+|-------|--------|-------|
+| `'hourly'` (default) | 170px | Everything, including the hourly strip below the divider |
+| `'compact'` | 80px | The header block only: location, temperature, high/low, condition |
+
+![Compact layout](screenshots/compact.png)
+
+## Hourly strip
+
+The bottom row of each hour cycles through three readings, cross-fading between them. Temperature holds longest, since it is the one you usually want; the other two are quicker looks on the way back round.
+
+| Reading | Shown as | Default dwell |
+|---------|----------|---------------|
+| Temperature | `72°` | 15s |
+| Chance of precipitation | `45%`, tinted in the same blue as the rain icons | 5s |
+| Wind | `12` mph with an arrow pointing the way the wind is blowing | 5s |
+
+![Precipitation](screenshots/hourly-precipitation.png)
+
+![Wind](screenshots/hourly-wind.png)
+
+The cycle pauses while your pointer is over the widget, so a reading does not swap away mid-glance. Any reading the forecast does not include is skipped.
+
+## Options
+
+All near the top of `index.coffee`:
+
+| Option | Default | What it does |
+|--------|---------|--------------|
+| `widgetEnabled` | `true` | Set `false` to hide the widget without uninstalling it |
+| `layout` | `'hourly'` | `'hourly'` or `'compact'` (see above) |
+| `hourlyMetrics` | `['temp', 'precip', 'wind']` | Which readings the strip cycles, and in what order. A single entry pins that reading and never cycles |
+| `hourlyDwellSeconds` | `temp: 15, precip: 5, wind: 5` | How long each reading holds |
+| `hourlyFadeSeconds` | `1.2` | Length of the cross-fade between readings. `0` swaps instantly |
+| `refreshFrequency` | `900000` | How often the forecast is fetched, in milliseconds (15 minutes) |
+
+## Alerts
+
+When the National Weather Service has an active alert for your location, it appears at the top right, colored by severity. Click it to open the NWS point-forecast page for your coordinates, whose Hazards section links the full text of every active alert.
 
 ## Icons: generated on first run (not shipped)
 
