@@ -106,7 +106,7 @@ style: """
     backdrop-filter: blur(var(--panel-blur, 48px))
     border-radius 10px
     box-sizing: border-box
-    min-height: 170px      // 'hourly' layout: 2·UNIT + GAP (see LAYOUT.md)
+    min-height: calc(var(--grid-unit, 80px) * 2 + var(--grid-gap, 10px))      // 'hourly' layout: 2·UNIT + GAP (see LAYOUT.md)
 
   // 'compact' layout: no hourly strip, so the panel drops to one grid row. The
   // class is toggled by update() from the `layout` option above.
@@ -116,7 +116,7 @@ style: """
   // so the bottom padding is trimmed 10px → 7px to land the panel on exactly 80px
   // instead of 83px. Beats .panel-stats on specificity (two classes vs one).
   .panel.is-compact
-    min-height: 80px
+    min-height: var(--grid-unit, 80px)
     padding-bottom: 7px
 
   .is-compact .wx-hourly
@@ -127,7 +127,7 @@ style: """
     display: flex          // lets stats-inner fill the panel height
 
   .stats-inner
-    width: 300px
+    width: calc(var(--grid-col, 320px) - 20px)
     display: flex
     flex-direction: column   // current info on top, hourly strip at the bottom
 
